@@ -13,38 +13,50 @@ import java.util.Scanner;
  */
 public class windowMaster {
     public static void main(String[] args) {
+        //declare variables
         float height;
         float width; 
-        
-        String stringHeight;
-        String stringWidth;
         
         float areaOfWindow;
         float cost;
         float perimeterOfWindow;
         
-        Scanner sc = new Scanner(System.in);
         
-        System.out.println("Please enter the window's height:");
-        stringHeight = sc.nextLine();
-        System.out.println("Please enter the window's width:");
-        stringWidth = sc.nextLine();
+        height = readValue("Please enter the window's height:");
+        width = readValue("Please enter the window's width:");
         
-        height = Float.parseFloat(stringHeight);
-        width = Float.parseFloat(stringWidth);
-        
-        areaOfWindow = height * width; 
-        perimeterOfWindow = 2*(height + width); 
-        
+   
+        areaOfWindow = areaOfRectangle(height, width);
+        perimeterOfWindow = perimeterOfRectangle(height, width);
         
         //prices outlined in problem prompt
         //add f's to force floats on hard coded values
         cost = (3.50f * areaOfWindow) + (2.25f * perimeterOfWindow);
         
-        System.out.println("Height: " + stringHeight);
-        System.out.println("Width: " +stringWidth);
+        System.out.println("Height: " + height);
+        System.out.println("Width: " + width);
         System.out.println("Area of Window: " + areaOfWindow);
         System.out.println("Perimeter of Window: " + perimeterOfWindow);
         System.out.println("Total Cost: " + cost);
     }
+    
+    
+    public static float readValue(String prompt) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println(prompt);
+        String input = sc.nextLine();
+        float floatVal = Float.parseFloat(input);
+        return floatVal;
+    }
+    
+    
+    public static float areaOfRectangle(float length, float width) {
+        return (length*width);
+    }
+    
+    public static float perimeterOfRectangle(float length, float width) {
+        return (2*(length+width));
+    }
+    
+    
 }
