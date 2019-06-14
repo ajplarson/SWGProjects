@@ -30,6 +30,6 @@ public interface UserIO {
     long readLong(String prompt, long min, long max);
 
     String readRequiredString(String prompt);
-    
+
     String readString(String prompt);
 }

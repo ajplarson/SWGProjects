@@ -13,7 +13,6 @@ import java.util.Scanner;
  */
 public class UserIOConsoleImpl implements UserIO {
 
-
     private static final String INVALID_NUMBER
             = "[INVALID] Enter a valid number.";
     private static final String NUMBER_OUT_OF_RANGE
