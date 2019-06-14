@@ -54,5 +54,6 @@ public interface MovieDatabaseDao {
      */
     Movie removeMovie(int movieIndex);
 
-    //NEED TO IMPLEMENT SEARCH
+    
+    List<Movie> startsWithSearch(String input);
 }

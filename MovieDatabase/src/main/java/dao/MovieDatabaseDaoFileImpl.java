@@ -39,5 +39,15 @@ public class MovieDatabaseDaoFileImpl implements MovieDatabaseDao {
         Movie removedMovie = movies.remove(movieIndex);
         return removedMovie;
     }
-
+    
+    @Override
+    public List<Movie> startsWithSearch(String input) {
+        ArrayList<Movie> newList = new ArrayList<>();
+        for(Movie currentMovie: movies) {
+            if((currentMovie.getTitle().toLowerCase()).startsWith(input.toLowerCase())) {
+                newList.add(currentMovie);
+            }
+        }
+        return newList;
+    }
 }

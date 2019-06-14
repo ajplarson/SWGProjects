@@ -154,4 +154,28 @@ public class MovieDatabaseView {
     }
     //END: Edit
 
+    
+    //BEGIN: Starts With Search
+    public void displaySearchMovieBanner() {
+        io.print("===== Movie Search =====");
+    }
+
+    public String getSearchInfo() {
+        return io.readString("Please enter a series of characters that the movie starts with\nFor example, type sta for Star Wars");
+    }
+    public void displaySearchList(List<Movie> searchList) {
+        if(searchList != null) {
+        for (Movie currentMovie : searchList) {
+            io.print((currentMovie.getMovieIndex()) + ": "
+                    + (currentMovie.getTitle()) + " - "
+                    + currentMovie.getDirectorName());
+        }
+        io.readString("Please hit enter to continue.");
+        } else {
+            io.print("No movies match that series of characters");
+        }
+    }
+    
+    //END: Starts With Search
+
 }

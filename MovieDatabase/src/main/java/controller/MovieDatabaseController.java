@@ -30,7 +30,7 @@ public class MovieDatabaseController {
             menuSelection = getMenuSelection();
             switch (menuSelection) {
                 case 1:
-                    io.print("Search Movie");
+                    startsWithSearch();
                     break;
                 case 2:
                     createMovie();
@@ -95,7 +95,15 @@ public class MovieDatabaseController {
         int movieID = view.getMovieIdChoice();
         Movie movie = dao.getMovie(movieID);
         view.getEditMovieInfo(movie);
+        //save to dao 
         view.displayEditMovieSuccessBanner();
+    }
+    
+    private void startsWithSearch() {
+        view.displaySearchMovieBanner();
+        String input = view.getSearchInfo();
+        List<Movie> searchList = dao.startsWithSearch(input);
+        view.displaySearchList(searchList);
     }
 
     private void unknownCommand() {
