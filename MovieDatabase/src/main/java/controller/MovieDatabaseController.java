@@ -5,57 +5,104 @@
  */
 package controller;
 
+import dao.MovieDatabaseDao;
+import dao.MovieDatabaseDaoFileImpl;
+import dto.Movie;
+import java.util.List;
+import ui.MovieDatabaseView;
+import ui.UserIO;
+import ui.UserIOImpl;
+
 /**
  *
  * @author ajplarson
  */
 public class MovieDatabaseController {
 
-    private UserIO io = new UserIOConsoleImpl();
+    private UserIO io = new UserIOImpl();
+    MovieDatabaseView view = new MovieDatabaseView();
+    MovieDatabaseDao dao = new MovieDatabaseDaoFileImpl();
 
     public void run() {
         boolean keepGoing = true;
         int menuSelection = 0;
         while (keepGoing) {
-            io.print("Main Menu");
-            io.print("1. Search for a Movie");
-            io.print("2. Add a movie to the database");
-            io.print("3. Remove a moview from the database");
-            io.print("4. Edit a movie in the database");
-            io.print("5. View all movies in the data base");
-            io.print("6. View information about a specific movie");
-            io.print("7. Exit");
-
-            menuSelection = io.readInt("Please select from the"
-                    + " above choices.", 1, 7);
-
+            menuSelection = getMenuSelection();
             switch (menuSelection) {
                 case 1:
                     io.print("Search Movie");
                     break;
                 case 2:
-                    io.print("Add movie");
+                    createMovie();
                     break;
                 case 3:
-                    io.print("Remove Movie");
+                    removeMovie();
                     break;
                 case 4:
-                    io.print("Edit Movie");
+                    editMovie();
                     break;
                 case 5:
-                    io.print("List All Movies");
+                    viewAll();
                     break;
                 case 6:
-                    io.print("List a specific movie");
+                    viewMovie();
                     break;
                 case 7:
                     keepGoing = false;
                     break;
                 default:
-                    io.print("UNKNOWN COMMAND");
+                    unknownCommand();
             }
 
         }
-        io.print("GOOD BYE");
+        exitMessage();
+    }
+
+    private int getMenuSelection() {
+        return view.printMenuAndGetSelection();
+    }
+
+    private void createMovie() {
+        view.displayCreateMovieBanner();
+        Movie newMovie = view.getNewMovieInfo();
+        dao.addMovie(newMovie);
+        view.displayMovieID(newMovie);
+        view.displayCreateSuccessBanner();
+    }
+
+    private void viewAll() {
+        view.displayDisplayAllBanner();
+        List<Movie> movieList = dao.getAllMovies();
+        view.displayMovieList(movieList);
+    }
+
+    private void viewMovie() {
+        view.displayDisplayMovieBanner();
+        int movieIndex = view.getMovieIdChoice();
+        Movie movie = dao.getMovie(movieIndex);
+        view.displayMovie(movie);
+    }
+
+    private void removeMovie() {
+        view.displayRemoveMovieBanner();
+        int movieID = view.getMovieIdChoice();
+        dao.removeMovie(movieID);
+        view.displayRemoveSuccessBanner();
+    }
+
+    private void editMovie() {
+        view.displayEditMovieBanner();
+        int movieID = view.getMovieIdChoice();
+        Movie movie = dao.getMovie(movieID);
+        view.getEditMovieInfo(movie);
+        view.displayEditMovieSuccessBanner();
+    }
+
+    private void unknownCommand() {
+        view.displayUnknownCommandBanner();
+    }
+
+    private void exitMessage() {
+        view.displayExitBanner();
     }
 }

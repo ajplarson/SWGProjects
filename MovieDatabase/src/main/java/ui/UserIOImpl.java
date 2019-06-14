@@ -12,7 +12,8 @@ import java.util.Scanner;
  * @author ajplarson
  */
 public class UserIOImpl implements UserIO {
-private static final String INVALID_NUMBER
+
+    private static final String INVALID_NUMBER
             = "[INVALID] Enter a valid number.";
     private static final String NUMBER_OUT_OF_RANGE
             = "[INVALID] Enter a number between %s and %s.";

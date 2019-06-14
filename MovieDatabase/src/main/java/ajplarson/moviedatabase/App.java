@@ -5,10 +5,16 @@
  */
 package ajplarson.moviedatabase;
 
+import controller.MovieDatabaseController;
+
 /**
  *
  * @author ajplarson
  */
 public class App {
-    
+
+    public static void main(String[] args) {
+        MovieDatabaseController movieController = new MovieDatabaseController();
+        movieController.run();
+    }
 }

@@ -10,10 +10,9 @@ package ui;
  * @author ajplarson
  */
 public interface UserIO {
-    
+
     //all possible read and write functions
     //used same interface as in code along
-
     void print(String msg);
 
     double readDouble(String prompt);
