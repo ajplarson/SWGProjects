@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
 import dto.Movie;
@@ -23,7 +18,7 @@ public interface MovieDatabaseDao {
      * @return the movie object previously associated with the given movie id if
      * it exists, null otherwise
      */
-    Movie addMovie(Movie movie);
+    Movie addMovie(Movie movie) throws MovieDatabaseDaoException;
 
     /**
      * Returns a String array containing the movie ids of all movies in the
@@ -31,7 +26,7 @@ public interface MovieDatabaseDao {
      *
      * @return String array containing the ids of all the movies in the database
      */
-    List<Movie> getAllMovies();
+    List<Movie> getAllMovies() throws MovieDatabaseDaoException;
 
     /**
      * Returns the movie object associated with the given movie id. Returns null
@@ -41,7 +36,7 @@ public interface MovieDatabaseDao {
      * @return the Movie object associated with the given movie id, null if no
      * such movie exists
      */
-    Movie getMovie(int movieIndex);
+    Movie getMovie(int movieIndex) throws MovieDatabaseDaoException;
 
     /**
      * Removes from the database the movie associated with the given id. Returns
@@ -52,8 +47,30 @@ public interface MovieDatabaseDao {
      * @return Movie object that was removed or null if no movie was associated
      * with the given movie id
      */
-    Movie removeMovie(int movieIndex);
-
+    Movie removeMovie(int movieIndex) throws MovieDatabaseDaoException;
     
-    List<Movie> startsWithSearch(String input);
+    
+    /**
+     * 
+     * takes a movie index and edited version of that movie. then sets the movie
+     * to the new edited version
+     * 
+     * @param movieIndex index of movie we will rewrite
+     * @param movie movie created from new movie info from the user
+     * @return movie after it has been set to the new movie
+     * @throws MovieDatabaseDaoException 
+     */
+    Movie editMovie(int movieIndex, Movie movie) throws MovieDatabaseDaoException;
+
+    /**
+     *
+     * Returns a list of movies in the database that start with the letters
+     * entered by the user in input. returns null if no movies were associated
+     * with that input
+     *
+     * @param input user search input
+     * @return list of Movie objects that match the search criterion or null if
+     * no movies were found that match the input
+     */
+    List<Movie> startsWithSearch(String input) throws MovieDatabaseDaoException;
 }

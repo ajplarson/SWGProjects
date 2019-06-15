@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ui;
 
 import dto.Movie;
@@ -13,9 +8,13 @@ import java.util.List;
  * @author ajplarson
  */
 public class MovieDatabaseView {
-    
-    UserIO io = new UserIOImpl();
-    
+
+    private UserIO io;
+
+    public MovieDatabaseView(UserIO io) {
+        this.io = io;
+    }
+
     public int printMenuAndGetSelection() {
         io.print("Main Menu for AJPDB");
         io.print("1. Search for a Movie");
@@ -45,18 +44,18 @@ public class MovieDatabaseView {
         currentMovie.setMpaaRating(mpaaRating);
         currentMovie.setStudio(studio);
         currentMovie.setUserRating(rating);
-        
+
         return currentMovie;
     }
-    
+
     public void displayCreateMovieBanner() {
         io.print("===== Add a Movie =====");
     }
-    
+
     public void displayCreateSuccessBanner() {
         io.readString("Movie Successfully added. Please hit enter to continue");
     }
-    
+
     public void displayMovieID(Movie movie) {
         io.print("This movie's ID number is: 000" + movie.getMovieIndex());
     }
@@ -71,7 +70,7 @@ public class MovieDatabaseView {
         }
         io.readString("Please hit enter to continue.");
     }
-    
+
     public void displayDisplayAllBanner() {
         io.print("===== All movies in AJPDB  =====");
     }
@@ -81,11 +80,11 @@ public class MovieDatabaseView {
     public void displayDisplayMovieBanner() {
         io.print("===== Find a Movie by ID =====");
     }
-    
+
     public int getMovieIdChoice() {
         return io.readInt("Please enter the movie's ID number. \n[for 0001 enter 1]");
     }
-    
+
     public void displayMovie(Movie movie) {
         if (movie != null) {
             io.print("_________________________");
@@ -101,7 +100,7 @@ public class MovieDatabaseView {
             io.print("That movie does not exist in AJPDB");
         }
         io.readString("Please hit enter to continue.");
-        
+
     }
     //END: specific movie choice
 
@@ -109,7 +108,7 @@ public class MovieDatabaseView {
     public void displayRemoveMovieBanner() {
         io.print("===== Remove a Movie =====");
     }
-    
+
     public void displayRemoveSuccessBanner() {
         io.readString("Movie succesfully removed. Please hit enter to continue");
     }
@@ -120,7 +119,7 @@ public class MovieDatabaseView {
         io.print("Good Bye");
         io.print("____________________");
     }
-    
+
     public void displayUnknownCommandBanner() {
         io.print("Unknown Command");
     }
@@ -129,8 +128,9 @@ public class MovieDatabaseView {
     public void displayEditMovieBanner() {
         io.print("===== Edit a Movie =====");
     }
-    
-    public Movie getEditMovieInfo(Movie editedMovie) {
+
+    public Movie getEditMovieInfo() {
+        Movie editedMovie = new Movie();
         //get all required info
         String title = io.readString("Please enter the new desired title");
         String name = io.readString("Please enter the new desired director's first and last name");
@@ -145,16 +145,15 @@ public class MovieDatabaseView {
         editedMovie.setMpaaRating(mpaaRating);
         editedMovie.setStudio(studio);
         editedMovie.setUserRating(rating);
-        
+
         return editedMovie;
     }
-    
+
     public void displayEditMovieSuccessBanner() {
         io.print("Movie was successfully edited");
     }
     //END: Edit
 
-    
     //BEGIN: Starts With Search
     public void displaySearchMovieBanner() {
         io.print("===== Movie Search =====");
@@ -163,19 +162,23 @@ public class MovieDatabaseView {
     public String getSearchInfo() {
         return io.readString("Please enter a series of characters that the movie starts with\nFor example, type sta for Star Wars");
     }
+
     public void displaySearchList(List<Movie> searchList) {
-        if(searchList != null) {
-        for (Movie currentMovie : searchList) {
-            io.print((currentMovie.getMovieIndex()) + ": "
-                    + (currentMovie.getTitle()) + " - "
-                    + currentMovie.getDirectorName());
-        }
-        io.readString("Please hit enter to continue.");
+        if (searchList != null) {
+            for (Movie currentMovie : searchList) {
+                io.print((currentMovie.getMovieIndex()) + ": "
+                        + (currentMovie.getTitle()) + " - "
+                        + currentMovie.getDirectorName());
+            }
+            io.readString("Please hit enter to continue.");
         } else {
             io.print("No movies match that series of characters");
         }
     }
-    
-    //END: Starts With Search
 
+    //END: Starts With Search
+    public void displayErrorMessage(String errorMsg) {
+        io.print("=== ERROR ===");
+        io.print(errorMsg);
+    }
 }

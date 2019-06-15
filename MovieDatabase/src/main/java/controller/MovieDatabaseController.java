@@ -1,17 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
 import dao.MovieDatabaseDao;
-import dao.MovieDatabaseDaoFileImpl;
+import dao.MovieDatabaseDaoException;
 import dto.Movie;
 import java.util.List;
 import ui.MovieDatabaseView;
-import ui.UserIO;
-import ui.UserIOImpl;
 
 /**
  *
@@ -19,98 +12,110 @@ import ui.UserIOImpl;
  */
 public class MovieDatabaseController {
 
-    private UserIO io = new UserIOImpl();
-    MovieDatabaseView view = new MovieDatabaseView();
-    MovieDatabaseDao dao = new MovieDatabaseDaoFileImpl();
+    //BEGIN: Injection
+    MovieDatabaseView view;
+    MovieDatabaseDao dao;
+    
+    public MovieDatabaseController(MovieDatabaseDao dao, MovieDatabaseView view) {
+        this.dao = dao;
+        this.view = view;
+    }
+    //END: Injection
 
+    //BEGIN: Functionality
     public void run() {
         boolean keepGoing = true;
         int menuSelection = 0;
-        while (keepGoing) {
-            menuSelection = getMenuSelection();
-            switch (menuSelection) {
-                case 1:
-                    startsWithSearch();
-                    break;
-                case 2:
-                    createMovie();
-                    break;
-                case 3:
-                    removeMovie();
-                    break;
-                case 4:
-                    editMovie();
-                    break;
-                case 5:
-                    viewAll();
-                    break;
-                case 6:
-                    viewMovie();
-                    break;
-                case 7:
-                    keepGoing = false;
-                    break;
-                default:
-                    unknownCommand();
+        try {
+            while (keepGoing) {
+                menuSelection = getMenuSelection();
+                switch (menuSelection) {
+                    case 1:
+                        startsWithSearch();
+                        break;
+                    case 2:
+                        createMovie();
+                        break;
+                    case 3:
+                        removeMovie();
+                        break;
+                    case 4:
+                        editMovie();
+                        break;
+                    case 5:
+                        viewAll();
+                        break;
+                    case 6:
+                        viewMovie();
+                        break;
+                    case 7:
+                        keepGoing = false;
+                        break;
+                    default:
+                        unknownCommand();
+                }
+                
             }
-
+            exitMessage();
+        } catch (MovieDatabaseDaoException e) {
+            view.displayErrorMessage(e.getMessage());
         }
-        exitMessage();
     }
-
+    
     private int getMenuSelection() {
         return view.printMenuAndGetSelection();
     }
-
-    private void createMovie() {
+    
+    private void createMovie() throws MovieDatabaseDaoException {
         view.displayCreateMovieBanner();
         Movie newMovie = view.getNewMovieInfo();
         dao.addMovie(newMovie);
         view.displayMovieID(newMovie);
         view.displayCreateSuccessBanner();
     }
-
-    private void viewAll() {
+    
+    private void viewAll() throws MovieDatabaseDaoException {
         view.displayDisplayAllBanner();
         List<Movie> movieList = dao.getAllMovies();
         view.displayMovieList(movieList);
     }
-
-    private void viewMovie() {
+    
+    private void viewMovie() throws MovieDatabaseDaoException {
         view.displayDisplayMovieBanner();
         int movieIndex = view.getMovieIdChoice();
         Movie movie = dao.getMovie(movieIndex);
         view.displayMovie(movie);
     }
-
-    private void removeMovie() {
+    
+    private void removeMovie() throws MovieDatabaseDaoException {
         view.displayRemoveMovieBanner();
-        int movieID = view.getMovieIdChoice();
-        dao.removeMovie(movieID);
+        int movieIndex = view.getMovieIdChoice();
+        dao.removeMovie(movieIndex);
         view.displayRemoveSuccessBanner();
     }
-
-    private void editMovie() {
+    
+    private void editMovie() throws MovieDatabaseDaoException {
         view.displayEditMovieBanner();
-        int movieID = view.getMovieIdChoice();
-        Movie movie = dao.getMovie(movieID);
-        view.getEditMovieInfo(movie);
-        //save to dao 
+        int movieIndex = view.getMovieIdChoice();
+        Movie movie = view.getEditMovieInfo();
+        dao.editMovie(movieIndex, movie);
         view.displayEditMovieSuccessBanner();
     }
     
-    private void startsWithSearch() {
+    private void startsWithSearch() throws MovieDatabaseDaoException {
         view.displaySearchMovieBanner();
         String input = view.getSearchInfo();
         List<Movie> searchList = dao.startsWithSearch(input);
         view.displaySearchList(searchList);
     }
-
+    
     private void unknownCommand() {
         view.displayUnknownCommandBanner();
     }
-
+    
     private void exitMessage() {
         view.displayExitBanner();
     }
+
+    //END: Functionality
 }
