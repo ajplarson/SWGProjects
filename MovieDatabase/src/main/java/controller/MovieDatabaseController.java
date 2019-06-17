@@ -12,7 +12,7 @@ import ui.MovieDatabaseView;
  */
 public class MovieDatabaseController {
 
-    //BEGIN: Injection
+    //BEGIN: Injection only need these two
     MovieDatabaseView view;
     MovieDatabaseDao dao;
     
@@ -93,12 +93,13 @@ public class MovieDatabaseController {
         dao.removeMovie(movieIndex);
         view.displayRemoveSuccessBanner();
     }
-    
+
+    //explanation for this method since it is a little more abstract
     private void editMovie() throws MovieDatabaseDaoException {
         view.displayEditMovieBanner();
-        int movieIndex = view.getMovieIdChoice();
-        Movie movie = view.getEditMovieInfo();
-        dao.editMovie(movieIndex, movie);
+        int movieIndex = view.getMovieIdChoice(); //get which movie we want to edit
+        Movie editedMovie = view.getEditMovieInfo(dao.getMovie(movieIndex)); //get new info to edit
+        dao.editMovie(movieIndex, editedMovie); //sets the old movie's info to the new movie
         view.displayEditMovieSuccessBanner();
     }
     
@@ -116,6 +117,5 @@ public class MovieDatabaseController {
     private void exitMessage() {
         view.displayExitBanner();
     }
-
     //END: Functionality
 }

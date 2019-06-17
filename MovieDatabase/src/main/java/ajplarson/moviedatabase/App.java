@@ -11,6 +11,7 @@ import ui.UserIOImpl;
  *
  * @author ajplarson
  */
+//All the fun happens here
 public class App {
 
     public static void main(String[] args) {

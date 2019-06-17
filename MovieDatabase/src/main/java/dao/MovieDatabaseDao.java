@@ -48,17 +48,16 @@ public interface MovieDatabaseDao {
      * with the given movie id
      */
     Movie removeMovie(int movieIndex) throws MovieDatabaseDaoException;
-    
-    
+
     /**
-     * 
+     *
      * takes a movie index and edited version of that movie. then sets the movie
      * to the new edited version
-     * 
+     *
      * @param movieIndex index of movie we will rewrite
      * @param movie movie created from new movie info from the user
      * @return movie after it has been set to the new movie
-     * @throws MovieDatabaseDaoException 
+     * @throws MovieDatabaseDaoException
      */
     Movie editMovie(int movieIndex, Movie movie) throws MovieDatabaseDaoException;
 

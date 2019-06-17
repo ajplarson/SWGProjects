@@ -17,12 +17,12 @@ public class MovieDatabaseView {
 
     public int printMenuAndGetSelection() {
         io.print("Main Menu for AJPDB");
-        io.print("1. Search for a Movie");
+        io.print("1. Search for a Movie by title");
         io.print("2. Add a movie to the database");
         io.print("3. Remove a movie from the database");
-        io.print("4. Edit a movie in the database");
-        io.print("5. View all movies in the data base");
-        io.print("6. View information about a specific movie");
+        io.print("4. Edit a movie in the database by ID");
+        io.print("5. View all movies in the database");
+        io.print("6. Search for a Movie by ID");
         io.print("7. Exit");
         return io.readInt("Please select from the above choices.", 1, 7);
     }
@@ -31,11 +31,12 @@ public class MovieDatabaseView {
     public Movie getNewMovieInfo() {
         //get all required info
         String title = io.readString("Please enter the movie title");
-        String name = io.readString("Please enter the director's first and last name");
-        String releaseDate = io.readString("Please enter the movie's Release Date [MM/DD/YY]");
-        String mpaaRating = io.readString("Please enter the movie's MPAA Rating");
+        String name = io.readString("Please enter the director's name");
+        String releaseDate = io.readString("Please enter the movie's Release Date\nPreferred format as year or [MM/DD/YY]");
+        String rating = io.readString("Please enter a movie rating (1-10 stars) or review");
         String studio = io.readString("Please enter the movie's studio");
-        String rating = io.readString("Please enter the movie's 5-star rating");
+        String mpaaRating = io.readString("Please enter the movie's MPAA Rating [G, PG, PG-13, R, or NC-17]");
+
         //set all required info
         Movie currentMovie = new Movie();
         currentMovie.setTitle(title);
@@ -57,15 +58,14 @@ public class MovieDatabaseView {
     }
 
     public void displayMovieID(Movie movie) {
-        io.print("This movie's ID number is: 000" + movie.getMovieIndex());
+        io.print("This movie's ID number is: 00" + movie.getMovieIndex());
     }
     //END: add movie 
 
     //BEGIN: viewAll movies functionality
     public void displayMovieList(List<Movie> movieList) {
         for (Movie currentMovie : movieList) {
-            io.print((currentMovie.getMovieIndex()) + ": "
-                    + (currentMovie.getTitle()) + " - "
+            io.print("00" + currentMovie.getMovieIndex() + ": " + currentMovie.getTitle() + " - "
                     + currentMovie.getDirectorName());
         }
         io.readString("Please hit enter to continue.");
@@ -88,11 +88,11 @@ public class MovieDatabaseView {
     public void displayMovie(Movie movie) {
         if (movie != null) {
             io.print("_________________________");
-            io.print("ID: " + movie.getMovieIndex());
+            io.print("ID: 00" + movie.getMovieIndex()); //the 00 makes it look nicer
             io.print("Title: " + movie.getTitle());
             io.print("Director: " + movie.getDirectorName());
-            io.print("User Rating: " + movie.getUserRating() + " out of 5 stars");
             io.print("Release Date: " + movie.getReleaseDate());
+            io.print("User Rating: " + movie.getUserRating());
             io.print("Studio: " + movie.getStudio());
             io.print("MPAA Rating: " + movie.getMpaaRating());
             io.print("_________________________");
@@ -115,9 +115,9 @@ public class MovieDatabaseView {
 
     //END: remove student
     public void displayExitBanner() {
-        io.print("____________________");
-        io.print("Good Bye");
-        io.print("____________________");
+        io.print("________");
+        io.print("GOOD BYE");
+        io.print("________");
     }
 
     public void displayUnknownCommandBanner() {
@@ -129,22 +129,49 @@ public class MovieDatabaseView {
         io.print("===== Edit a Movie =====");
     }
 
-    public Movie getEditMovieInfo() {
+    public Movie getEditMovieInfo(Movie movie) {
+        displayMovie(movie);
         Movie editedMovie = new Movie();
         //get all required info
-        String title = io.readString("Please enter the new desired title");
-        String name = io.readString("Please enter the new desired director's first and last name");
-        String releaseDate = io.readString("Please enter the new desired movie's Release Date [MM/DD/YY]");
-        String mpaaRating = io.readString("Please enter the new desired movie's MPAA Rating");
-        String studio = io.readString("Please enter the new desired movie's studio");
-        String rating = io.readString("Please enter the new desired movie's 5-star rating");
+        String title = io.readString("Please enter the new desired title or press enter to skip changing this item");
+        String name = io.readString("Please enter the new desired director's name or press enter to skip changing this item");
+        String releaseDate = io.readString("Please enter the new desired movie's Release Date or press enter to skip changing this item");
+        String rating = io.readString("Please enter the new desired movie's rating or press enter to skip changing this item");
+        String studio = io.readString("Please enter the new desired movie's studio or press enter to skip changing this item");
+        String mpaaRating = io.readString("Please enter the new desired movie's MPAA Rating or press enter to skip changing this item");
+
         //set all required info
-        editedMovie.setTitle(title);
-        editedMovie.setDirectorName(name);
-        editedMovie.setReleaseDate(releaseDate);
-        editedMovie.setMpaaRating(mpaaRating);
-        editedMovie.setStudio(studio);
-        editedMovie.setUserRating(rating);
+        if (!(title.isBlank())) { //if the title is not blank set it otherwise keep the same
+            editedMovie.setTitle(title);
+        } else {
+            editedMovie.setTitle(movie.getTitle());
+        }
+        //same logic for all other cases
+        if (!(name.isBlank())) {
+            editedMovie.setDirectorName(name);
+        } else {
+            editedMovie.setDirectorName(movie.getDirectorName());
+        }
+        if (!(releaseDate.isBlank())) {
+            editedMovie.setReleaseDate(releaseDate);
+        } else {
+            editedMovie.setReleaseDate(movie.getReleaseDate());
+        }
+        if (!(mpaaRating.isBlank())) {
+            editedMovie.setMpaaRating(mpaaRating);
+        } else {
+            editedMovie.setMpaaRating(movie.getMpaaRating());
+        }
+        if (!(studio.isBlank())) {
+            editedMovie.setStudio(studio);
+        } else {
+            editedMovie.setStudio(movie.getStudio());
+        }
+        if (!(rating.isBlank())) {
+            editedMovie.setUserRating(rating);
+        } else {
+            editedMovie.setUserRating(movie.getUserRating());
+        }
 
         return editedMovie;
     }
@@ -166,14 +193,14 @@ public class MovieDatabaseView {
     public void displaySearchList(List<Movie> searchList) {
         if (searchList != null) {
             for (Movie currentMovie : searchList) {
-                io.print((currentMovie.getMovieIndex()) + ": "
+                io.print("00" + (currentMovie.getMovieIndex()) + ": "
                         + (currentMovie.getTitle()) + " - "
                         + currentMovie.getDirectorName());
             }
-            io.readString("Please hit enter to continue.");
         } else {
             io.print("No movies match that series of characters");
         }
+        io.readString("Please hit enter to continue."); //either way hit enter to continue
     }
 
     //END: Starts With Search

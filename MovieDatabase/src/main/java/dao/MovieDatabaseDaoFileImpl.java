@@ -16,10 +16,10 @@ import java.util.Scanner;
  * @author ajplarson
  */
 public class MovieDatabaseDaoFileImpl implements MovieDatabaseDao {
-
+    
     public static final String DATABASE_FILE = "database.txt";
     public static final String DELIMITER = "::";
-
+    
     private ArrayList<Movie> movies = new ArrayList<>();
 
     //BEGIN: File reader then writer
@@ -41,20 +41,20 @@ public class MovieDatabaseDaoFileImpl implements MovieDatabaseDao {
         unmarshalledMovie.setStudio(movieTokens[4]);
         //5 -> UserRating
         unmarshalledMovie.setUserRating(movieTokens[5]);
-
+        
         return unmarshalledMovie;
-
+        
     }
-
+    
     private void loadDatabase() throws MovieDatabaseDaoException {
         Scanner scanner;
-
+        
         try {
             scanner = new Scanner(new BufferedReader(new FileReader(DATABASE_FILE)));
         } catch (FileNotFoundException e) {
             throw new MovieDatabaseDaoException("Could not load file into database", e);
         }
-
+        
         String currentLine;
         Movie currentMovie;
 
@@ -65,10 +65,11 @@ public class MovieDatabaseDaoFileImpl implements MovieDatabaseDao {
             currentLine = scanner.nextLine();
             currentMovie = unmarshallMovie(currentLine);
             movies.add(currentMovie);
+            currentMovie.setMovieIndex(movies.indexOf(currentMovie));
         }
         scanner.close();
     }
-
+    
     private String marshallMovie(Movie aMovie) {
         //we want to write a movie into a line of text matching the below format
         //MovieTitle::MM/DD/YY::DirectorName::mpaaRating::Studio::UserRating
@@ -78,13 +79,13 @@ public class MovieDatabaseDaoFileImpl implements MovieDatabaseDao {
         movieAsText += aMovie.getMpaaRating() + DELIMITER;
         movieAsText += aMovie.getStudio() + DELIMITER;
         movieAsText += aMovie.getUserRating();
-
+        
         return movieAsText;
     }
-
+    
     private void writeDatabase() throws MovieDatabaseDaoException {
         PrintWriter out;
-
+        
         try {
             out = new PrintWriter(new FileWriter(DATABASE_FILE));
         } catch (IOException e) {
@@ -98,59 +99,82 @@ public class MovieDatabaseDaoFileImpl implements MovieDatabaseDao {
             out.flush();
         }
         out.close();
-
+        
     }
 
     //END: File reader then writer
     //BEGIN: Application methods
+    //From Angelina on Slack: Only need to load database if list is empty
     @Override
     public Movie addMovie(Movie movie) throws MovieDatabaseDaoException {
-        loadDatabase();
+        if (movies.isEmpty()) {
+            loadDatabase();
+        }
         movies.add(movie);
         movie.setMovieIndex(movies.indexOf(movie));
         writeDatabase();
         return movie;
     }
-
+    
     @Override
     public List<Movie> getAllMovies() throws MovieDatabaseDaoException {
-        loadDatabase();
+        if (movies.isEmpty()) {
+            loadDatabase();
+        }
         return movies;
     }
-
+    
     @Override
     public Movie getMovie(int movieIndex) throws MovieDatabaseDaoException {
-        loadDatabase();
+        if (movies.isEmpty()) {
+            loadDatabase();
+        }
         return movies.get(movieIndex);
     }
-
+    
     @Override
     public Movie removeMovie(int movieIndex) throws MovieDatabaseDaoException {
-        loadDatabase();
+        if (movies.isEmpty()) {
+            loadDatabase();
+        }
         Movie removedMovie = movies.remove(movieIndex);
         writeDatabase();
         return removedMovie;
     }
-
+    
     @Override
     public Movie editMovie(int movieIndex, Movie editedMovie) throws MovieDatabaseDaoException {
-        loadDatabase();
+        if (movies.isEmpty()) {
+            loadDatabase();
+        }
+        //set all info in the old movie to the new entered info
         Movie movie = movies.get(movieIndex);
-        movie = editedMovie;
+        movie.setTitle(editedMovie.getTitle());
+        movie.setDirectorName(editedMovie.getDirectorName());        
+        movie.setMpaaRating(editedMovie.getMpaaRating());
+        movie.setReleaseDate(editedMovie.getReleaseDate());
+        movie.setStudio(editedMovie.getStudio());
+        movie.setUserRating(editedMovie.getUserRating());
         writeDatabase();
         return movie;
     }
-
+    
     @Override
     public List<Movie> startsWithSearch(String input) throws MovieDatabaseDaoException {
-        loadDatabase();
+        if (movies.isEmpty()) {
+            loadDatabase();
+        }
         ArrayList<Movie> newList = new ArrayList<>();
         for (Movie currentMovie : movies) {
             if ((currentMovie.getTitle().toLowerCase()).startsWith(input.toLowerCase())) {
                 newList.add(currentMovie);
             }
         }
-        return newList;
+        if (newList.size() == 0) {
+            return null; //returns null to communicate no entry found
+        } else {
+            return newList;
+        }
     }
     //END: Application methods
 }
