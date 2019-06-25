@@ -82,22 +82,21 @@ public class MovieDatabaseController {
     
     private void viewMovie() throws MovieDatabaseDaoException {
         view.displayDisplayMovieBanner();
-        int movieIndex = view.getMovieIdChoice();
+        int movieIndex = view.getMovieIdChoice(0, 10);
         Movie movie = dao.getMovie(movieIndex);
         view.displayMovie(movie);
     }
     
     private void removeMovie() throws MovieDatabaseDaoException {
         view.displayRemoveMovieBanner();
-        int movieIndex = view.getMovieIdChoice();
-        dao.removeMovie(movieIndex);
+        dao.removeMovie(view.getMovieIdChoice(0, 10));
         view.displayRemoveSuccessBanner();
     }
 
     //explanation for this method since it is a little more abstract
     private void editMovie() throws MovieDatabaseDaoException {
         view.displayEditMovieBanner();
-        int movieIndex = view.getMovieIdChoice(); //get which movie we want to edit
+        int movieIndex = view.getMovieIdChoice(0, 10); //get which movie we want to edit
         Movie editedMovie = view.getEditMovieInfo(dao.getMovie(movieIndex)); //get new info to edit
         dao.editMovie(movieIndex, editedMovie); //sets the old movie's info to the new movie
         view.displayEditMovieSuccessBanner();

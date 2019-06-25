@@ -81,8 +81,12 @@ public class MovieDatabaseView {
         io.print("===== Find a Movie by ID =====");
     }
 
-    public int getMovieIdChoice() {
-        return io.readInt("Please enter the movie's ID number. \n[for 0001 enter 1]");
+    public int getMovieIdChoice(int min, int max) {
+        int index = 0;
+        do {
+            index = io.readInt("Please enter the movie's ID number. \n[for 0001 enter 1]");
+        } while (index <= min || index >= max);
+        return index;
     }
 
     public void displayMovie(Movie movie) {

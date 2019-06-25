@@ -5,9 +5,11 @@
  */
 package ajplarson.classroster.controller;
 
-import ajplarson.classroster.dao.ClassRosterDao;
-import ajplarson.classroster.dao.ClassRosterDaoException;
+import ajplarson.classroster.dao.ClassRosterPersistenceException;
 import ajplarson.classroster.dto.Student;
+import ajplarson.classroster.service.ClassRosterDataValidationException;
+import ajplarson.classroster.service.ClassRosterDuplicateIdException;
+import ajplarson.classroster.service.ClassRosterServiceLayer;
 import ajplarson.classroster.ui.ClassRosterView;
 import ajplarson.classroster.ui.UserIO;
 import ajplarson.classroster.ui.UserIOConsoleImpl;
@@ -18,24 +20,24 @@ import java.util.List;
  * @author ajplarson
  */
 public class ClassRosterController {
-    
+
     ClassRosterView view;
-    ClassRosterDao dao;
-    
-    public ClassRosterController(ClassRosterDao dao, ClassRosterView view) {
-        this.dao = dao;
+    ClassRosterServiceLayer service;
+
+    public ClassRosterController(ClassRosterServiceLayer service, ClassRosterView view) {
+        this.service = service;
         this.view = view;
     }
-    
+
     private UserIO io = new UserIOConsoleImpl();
-    
+
     public void run() {
         boolean keepGoing = true;
         int menuSelection = 0;
         try {
             while (keepGoing) {
                 menuSelection = getMenuSelection();
-                
+
                 switch (menuSelection) {
                     case 1:
                         listStudents();
@@ -55,52 +57,61 @@ public class ClassRosterController {
                     default:
                         unknownCommand();
                 }
-                
+
             }
-            
+
             exitMessage();
-        } catch (ClassRosterDaoException e) {
+        } catch (ClassRosterPersistenceException e) {
             view.displayErrorMessage(e.getMessage());
         }
     }
-    
-    private void createStudent() throws ClassRosterDaoException {
+
+    private void createStudent() throws ClassRosterPersistenceException {
         view.displayCreateStudentBanner();
-        Student newStudent = view.getNewStudentInfo();
-        dao.addStudent(newStudent.getStudentId(), newStudent);
-        view.displayCreateSuccessBanner();
+        boolean hasErrors = false;
+        do {
+            Student currentStudent = view.getNewStudentInfo();
+            try {
+                service.createStudent(currentStudent);
+                view.displayCreateSuccessBanner();
+                hasErrors = false;
+            } catch (ClassRosterDuplicateIdException | ClassRosterDataValidationException e) {
+                hasErrors = true;
+                view.displayErrorMessage(e.getMessage());
+            }
+        } while (hasErrors);
     }
-    
+
     private int getMenuSelection() {
         return view.printMenuAndGetSelection();
     }
-    
-    private void listStudents() throws ClassRosterDaoException {
+
+    private void listStudents() throws ClassRosterPersistenceException {
         view.displayDisplayAllBanner();
-        List<Student> studentList = dao.getAllStudents();
+        List<Student> studentList = service.getAllStudents();
         view.displayStudentList(studentList);
     }
-    
-    private void viewStudent() throws ClassRosterDaoException {
+
+    private void viewStudent() throws ClassRosterPersistenceException {
         view.displayDisplayStudentBanner();
         String studentId = view.getStudentIdChoice();
-        Student student = dao.getStudent(studentId);
+        Student student = service.getStudent(studentId);
         view.displayStudent(student);
     }
-    
-    private void removeStudent() throws ClassRosterDaoException {
+
+    private void removeStudent() throws ClassRosterPersistenceException {
         view.displayRemoveStudentBanner();
         String studentId = view.getStudentIdChoice();
-        dao.removeStudent(studentId);
+        service.removeStudent(studentId);
         view.displayRemoveSuccessBanner();
     }
-    
+
     private void unknownCommand() {
         view.displayUnknownCommandBanner();
     }
-    
+
     private void exitMessage() {
         view.displayExitBanner();
     }
-    
+
 }

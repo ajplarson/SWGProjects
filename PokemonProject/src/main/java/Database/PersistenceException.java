@@ -3,20 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ajplarson.classroster.dao;
+package Database;
 
 /**
  *
- * @author Andrew
+ * @author ajplarson
  */
-public class ClassRosterDaoException extends Exception {
+public class PersistenceException extends Exception {
 
-    public ClassRosterDaoException(String message) {
+    public PersistenceException(String message) {
         super(message);
     }
 
-    public ClassRosterDaoException(String message, Throwable cause) {
+    public PersistenceException(String message, Throwable cause) {
         super(message, cause);
     }
-
 }
