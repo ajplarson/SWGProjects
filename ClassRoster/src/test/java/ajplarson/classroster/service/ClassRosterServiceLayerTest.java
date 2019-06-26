@@ -5,19 +5,15 @@
  */
 package ajplarson.classroster.service;
 
-import ajplarson.classroster.dao.ClassRosterAuditDao;
-import ajplarson.classroster.dao.ClassRosterAuditDaoStubImpl;
-import ajplarson.classroster.dao.ClassRosterDao;
-import ajplarson.classroster.dao.ClassRosterDaoStubImpl;
-import ajplarson.classroster.dao.ClassRosterPersistenceException;
 import ajplarson.classroster.dto.Student;
-import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  *
@@ -28,10 +24,13 @@ public class ClassRosterServiceLayerTest {
     private ClassRosterServiceLayer service;
 
     public ClassRosterServiceLayerTest() {
-        ClassRosterDao dao = new ClassRosterDaoStubImpl();
-        ClassRosterAuditDao auditDao = new ClassRosterAuditDaoStubImpl();
-
-        service = new ClassRosterServiceLayerImpl(dao, auditDao);
+//        ClassRosterDao dao = new ClassRosterDaoStubImpl();
+//        ClassRosterAuditDao auditDao = new ClassRosterAuditDaoStubImpl();
+//
+//        service = new ClassRosterServiceLayerImpl(dao, auditDao);
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+        service = ctx.getBean("serviceLayer", ClassRosterServiceLayer.class);
+        
     }
 
     @BeforeAll
