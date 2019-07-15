@@ -30,6 +30,9 @@ public class FileImpl implements File {
     public static final String END_OF_DELIMITER = "{{";
     private ArrayList<Trainer> trainers = new ArrayList<>();
 
+    
+    
+    //BEGIN UNMARSHALL
     private Trainer unmarshallTrainer(String trainerAsText) {
         //expected format
         //TrainerName::PokemonList
@@ -69,6 +72,67 @@ public class FileImpl implements File {
         return pokemon;
     }
 
+     private void loadFile() throws PersistenceException {
+        Scanner scanner;
+
+        try {
+            scanner = new Scanner(new BufferedReader(new FileReader("pokemons.txt")));
+
+        } catch (FileNotFoundException e) {
+            throw new PersistenceException("Could not load data into memory.", e);
+        }
+        String currentLine;
+        Trainer currentTrainer;
+        while (scanner.hasNextLine()) {
+            currentLine = scanner.nextLine();
+            currentTrainer = unmarshallTrainer(currentLine);
+            //put student we just unmarshalled into the map
+            trainers.add(currentTrainer);
+        }
+        scanner.close();
+    }
+    //END UNMARSHALLING
+
+    //MARSHALLING
+    //need to make it look like 4321::Charles::Babbage::Java-September1842
+    private String marshallStudent(Student aStudent) {
+        String studentAsText = aStudent.getStudentId() + DELIMITER; //start with id
+        studentAsText += aStudent.getFirstName() + DELIMITER;
+        studentAsText += aStudent.getLastName() + DELIMITER;
+        studentAsText += aStudent.getCohort();
+        return studentAsText;
+    }
+
+    private void writeRoster() throws ClassRosterPersistenceException {
+        PrintWriter out;
+        try {
+            out = new PrintWriter(new FileWriter(ROSTER_FILE));
+        } catch (IOException e) {
+            throw new ClassRosterPersistenceException("Could not save student data.", e);
+        }
+        String studentAsText;
+        List<Student> studentList = this.getAllStudents();
+        for (Student currentStudent : studentList) {
+            studentAsText = marshallStudent(currentStudent);
+            out.println(studentAsText);
+            out.flush();
+        }
+        out.close();
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     @Override
     public Trainer addTrainer(Trainer trainer) throws PersistenceException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

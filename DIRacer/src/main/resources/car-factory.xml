@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">    
+
+    <!-- BEANS START HERE -->
+    <bean id="turboEngine" class = "com.tsguild.exercises.racer.engines.TurboEngine" />
+    <bean id ="porsche" class = "com.tsguild.exercises.racer.vehicles.DigitalPorshe">
+        <constructor-arg ref="turboEngine" />
+        <property name="gasTank" value="5.0"/>
+    </bean>
+    
+    <bean id="hamster" class="com.tsguild.exercises.racer.vehicles.HamsterBall" />
+    
+    <bean id="HybridEngine" class = "com.tsguild.exercises.racer.engines.HybridEngine" />
+    <bean id ="JWBeetle" class = "com.tsguild.exercises.racer.vehicles.JWBeetle">
+        <constructor-arg ref="HybridEngine" />
+        <property name="gasTank" value="5.0"/>
+    </bean>
+    
+    <bean id="mechanic" class = "com.tsguild.exercises.racer.helpers.Mechanic" />
+    
+    <bean id="announcer" class = "com.tsguild.exercises.racer.helpers.RealAnnouncer" />
+    
+    <bean id="race" class="com.tsguild.exercises.racer.tracks.Race">
+        <constructor-arg>
+            <list>
+                <ref bean="porsche" />
+                <ref bean="JWBeetle" />
+                <ref bean="hamster" />
+            </list>
+        </constructor-arg>
+        <constructor-arg value="50" />
+        <constructor-arg ref="announcer" />
+        <property name="mechanic" ref="mechanic" />
+    </bean>
+</beans>
