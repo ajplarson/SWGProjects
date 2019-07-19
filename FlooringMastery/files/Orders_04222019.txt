@@ -1,0 +1,16 @@
+OrderNumber,CustomerName,State,TaxRate,ProductType,Area,CostPerSquareFoot,LaborCostPerSquareFoot,MaterialCost,LaborCost,Tax,Total
+155,Breitenberg Hackett and Padberg,WI,6.75,Sisal Carpet,600.00,2.75,3.75,1650.00,2250.00,263.25,4163.25
+156,Hayes Shanahan and Homenick,WI,6.75,Slate,2350.00,3.50,3.75,8225.00,8812.50,1150.03,18187.53
+157,Powlowski-Batz,SD,2.50,Frieze Carpet,2975.00,4.25,3.00,12643.75,8925.00,539.22,22107.97
+158,Feest Moore and Quitzon,MN,5.00,Shag Carpet,2975.00,2.00,4.25,5950.00,12643.75,929.69,19523.44
+159,Daugherty Group,ND,2.50,Ceramic Tile,1600.00,3.00,4.25,4800.00,6800.00,290.00,11890.00
+160,Jacobs-Mante,NE,2.50,Sisal Carpet,1100.00,2.75,3.75,3025.00,4125.00,178.75,7328.75
+161,Vandervort-Jenkins,IA,6.50,Shag Carpet,2975.00,2.00,4.25,5950.00,12643.75,1208.59,19802.34
+162,Stanton LLC,MN,5.00,Frieze Carpet,1475.00,4.25,3.00,6268.75,4425.00,534.69,11228.44
+163,Stracke-O'Connell,IA,6.50,Slate,1350.00,3.50,3.75,4725.00,5062.50,636.19,10423.69
+164,Rogahn-McGlynn,ND,2.50,Frieze Carpet,2725.00,4.25,3.00,11581.25,8175.00,493.91,20250.16
+165,Kulas Bayer and Luettgen,IL,2.50,Concrete,725.00,2.00,5.50,1450.00,3987.50,135.94,5573.44
+166,Carroll-Deckow,WI,6.75,Bamboo,100.00,2.50,2.25,250.00,225.00,32.06,507.06
+167,Ankunding Nitzsche and Ledner,WI,6.75,Subway Tile,975.00,2.75,5.50,2681.25,5362.50,542.95,8586.70
+168,Waters Inc,SD,2.50,Subway Tile,475.00,2.75,5.50,1306.25,2612.50,97.97,4016.72
+169,Russel Sipes and Lindgren,SD,2.50,Bamboo,2975.00,2.50,2.25,7437.50,6693.75,353.28,14484.53

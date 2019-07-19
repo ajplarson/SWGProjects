@@ -1,0 +1,2 @@
+OrderNumber,CustomerName,State,TaxRate,ProductType,Area,CostPerSquareFoot,LaborCostPerSquareFoot,MaterialCost,LaborCost,Tax,Total
+1,jeb,mn,5.00,concrete,200,2.00,5.50,400.00,1100.00,75.0000,1575.0000

@@ -1,0 +1,2 @@
+OrderNumber,CustomerName,State,TaxRate,ProductType,Area,CostPerSquareFoot,LaborCostPerSquareFoot,MaterialCost,LaborCost,Tax,Total
+1,ABC Corp.,MN,5.00,Concrete,1455,2.00,5.50,2910.00,8002.50,545.6250,11458.1250
