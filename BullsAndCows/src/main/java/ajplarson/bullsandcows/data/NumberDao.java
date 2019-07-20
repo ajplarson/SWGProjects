@@ -5,6 +5,7 @@ import ajplarson.bullsandcows.models.Guess;
 import ajplarson.bullsandcows.models.Round;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -46,7 +47,12 @@ public class NumberDao {
     }
 
     public List<Game> getAllGames() {
-        final String sql = "SELECT * from game;";
+        final String sql = "select * \n"
+                + "from game g \n"
+                + "inner join round r on r.gameid = g.gameid \n"
+                + "inner join guess gu on r.guessid = gu.guessid\n"
+                + "group by r.roundid\n"
+                + "order by r.time;";
         return jdbcTemplate.query(sql, new GameMapper());
 
     }
@@ -67,6 +73,7 @@ public class NumberDao {
         @Override
         public Game mapRow(ResultSet rs, int index) throws SQLException {
             Game game = new Game();
+            List<Round> rounds = new ArrayList<>();
             game.setGameId(Integer.parseInt(rs.getString("gameid")));
             game.setWinningNumbers(rs.getString("winningnumbers"));
             game.setNumberOfRounds(Integer.parseInt(rs.getString("numberofrounds")));

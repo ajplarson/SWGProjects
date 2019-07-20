@@ -40,15 +40,20 @@ public class GameService {
         return g;
     }
 
+    //concatenating to a blank string because .toString() has bad format
     public String makeWinningNumbers() {
         Set<Integer> nums = new HashSet<>();
+        String output = "";
         while (nums.size() < NUM_NUMBERS) {
             Integer toAdd = rand.nextInt(10);
             nums.add(toAdd);
         }
         List<Integer> list = new ArrayList<>(nums);
         Collections.shuffle(list);
-        return list.toString();
+        for(int i = 0; i < NUM_NUMBERS; i++) {
+            output += list.get(i);
+        }
+        return output;
     }
 
     public Game findById(int gameId) {
@@ -90,6 +95,16 @@ public class GameService {
         } else {
             result.setStatus(GuessStatus.Continue);
         }
+        
+        
+        //loop to handle exact match assignment
+        for (int i = 0; i < game.getGuesses().size(); i++) {
+            if (game.getGuesses().get(i) == game.getWinningNumbers().charAt(i)) {
+                
+            }
+        }
+        
+        //loop to handle partial match assignment
 
         result.setStatus(GuessStatus.Continue);
         return result;

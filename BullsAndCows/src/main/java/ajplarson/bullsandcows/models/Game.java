@@ -13,20 +13,19 @@ public class Game {
     private int gameId;
     private List<Character> guesses = new ArrayList<>();
     private String winningNumbers;
-    private int numberOfRounds;
-
-    public int getNumberOfRounds() {
-        return numberOfRounds;
-    }
-
-    public void setNumberOfRounds(int numberOfRounds) {
-        this.numberOfRounds = numberOfRounds;
-    }
+    private List<Round> rounds;
 
     public Game() {
     }
 
-    
+    public List<Round> getRounds() {
+        return rounds;
+    }
+
+    public void setRounds(List<Round> rounds) {
+        this.rounds = rounds;
+    }
+
     public int getGameId() {
         return gameId;
     }
@@ -43,10 +42,9 @@ public class Game {
         this.winningNumbers = winningNumbers;
     }
 
-
     public int getIncorrectCount() {
         Set<Character> numbers = new HashSet<>();
-        
+
         for (Character c : winningNumbers.toCharArray()) {
             numbers.add(c);
         }
