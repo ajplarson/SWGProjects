@@ -14,6 +14,7 @@ public class Game {
     private List<Character> guesses = new ArrayList<>();
     private String winningNumbers;
     private List<Round> rounds;
+    private int numberOfRounds;
 
     public Game() {
     }
@@ -25,6 +26,15 @@ public class Game {
     public void setRounds(List<Round> rounds) {
         this.rounds = rounds;
     }
+
+    public int getNumberOfRounds() {
+        return numberOfRounds;
+    }
+
+    public void setNumberOfRounds(int numberOfRounds) {
+        this.numberOfRounds = numberOfRounds;
+    }
+    
 
     public int getGameId() {
         return gameId;
