@@ -1,6 +1,7 @@
 package ajplarson.bullsandcows.controllers;
 
 import java.sql.SQLIntegrityConstraintViolationException;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -22,6 +23,15 @@ public class GameControllerExceptionHandler extends ResponseEntityExceptionHandl
     @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
     public final ResponseEntity<Error> handleSqlException(
             SQLIntegrityConstraintViolationException ex,
+            WebRequest request) {
+
+        Error err = new Error();
+        err.setMessage(CONSTRAINT_MESSAGE);
+        return new ResponseEntity<>(err, HttpStatus.UNPROCESSABLE_ENTITY);
+    }
+    @ExceptionHandler(DataAccessException.class)
+    public final ResponseEntity<Error> handleDataAccessException(
+            DataAccessException ex,
             WebRequest request) {
 
         Error err = new Error();

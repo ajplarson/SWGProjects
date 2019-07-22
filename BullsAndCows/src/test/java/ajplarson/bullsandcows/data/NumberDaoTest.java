@@ -1,9 +1,12 @@
 package ajplarson.bullsandcows.data;
 
 import ajplarson.bullsandcows.TestApplicationConfiguration;
+import ajplarson.bullsandcows.models.Game;
+import ajplarson.bullsandcows.models.Round;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,29 +32,20 @@ public class NumberDaoTest {
     }
 
     @BeforeEach
-    public void setUp() {/*
-        List<Room> rooms = roomDao.getAllRooms();
-        for (Room room : rooms) {
-            roomDao.deleteRoomById(room.getId());
+    public void setUp() {
+        List<Round> rounds = dao.getAllRounds();
+        for (Round r : rounds) {
+            dao.deleteById(r.getGameId());
         }
-
-        List<Employee> employees = employeeDao.getAllEmployees();
-        for (Employee employee : employees) {
-            employeeDao.deleteEmployeeById(employee.getId());
-        }
-
-        List<Meeting> meetings = meetingDao.getAllMeetings();
-        for (Meeting meeting : meetings) {
-            meetingDao.deleteMeetingById(meeting.getId());
-        }*/
     }
 
-//    /**
-//     * Test of getAllGuesses method, of class NumberDao.
-//     */
-//    @Test
-//    public void testGetAllGuesses() {
-//    }
+    /*
+     * Test of getAllGuesses method, of class NumberDao.
+     */
+    @Test
+    public void testGetAllGuesses() {
+        assertTrue(dao.getAllGames().isEmpty());
+    }
 //
 //    /**
 //     * Test of getAllRounds method, of class NumberDao.

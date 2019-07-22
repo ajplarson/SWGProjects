@@ -14,32 +14,27 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class GameService {
 
-    private static List<Game> games = new ArrayList<>();
-
-    private static final int MAX_GUESSES = 8;
     private static final int NUM_NUMBERS = 4;
     private static final Random rand = new Random();
 
     private final NumberDao numberDao;
 
+    @Autowired
     public GameService(NumberDao numberDao) {
         this.numberDao = numberDao;
     }
 
     public Game start() {
-        int nextId = games.stream()
-                .mapToInt(g -> g.getGameId())
-                .max()
-                .orElse(0) + 1;
+        //dont set ids let the database do work for you. dont have specific local lists for games use the database
         Game g = new Game();
         g.setWinningNumbers(makeWinningNumbers());
-        g.setGameId(nextId);
-        games.add(g);
+        numberDao.add(g);
         return g;
     }
 
@@ -60,6 +55,7 @@ public class GameService {
     }
 
     public Game findById(int gameId) {
+        List<Game> games = numberDao.getAllGames();
         return games.stream()
                 .filter(g -> g.getGameId() == gameId)
                 .findFirst()
@@ -67,44 +63,21 @@ public class GameService {
     }
 
     public GuessResult makeGuess(Guess guess) {
+        List<Game> games = numberDao.getAllGames();
         Round round = new Round();
         GuessResult result = new GuessResult();
-        List<Round> rounds = new ArrayList<>();
         int exact = 0;
         int partial = 0;
-        int nextRoundNumber = 0;
-
-        round.setGuess(guess);
+        round.setGameId(guess.getGameId());
+        round.setGuess(guess.getGuessAsString());
         round.setTime(Timestamp.valueOf(LocalDateTime.now()));
-
         Game game = games.stream()
                 .filter(g -> g.getGameId() == guess.getGameId())
                 .findFirst()
                 .orElse(null);
-        round.setGameId(game.getGameId());
-
         //game is null
         if (game == null) {
             result.setStatus(GuessStatus.Shame);
-            return result;
-        }
-
-        //round number
-        if (game.getRounds() != null) {
-            rounds = game.getRounds();
-            nextRoundNumber = game.getRounds().stream()
-                    .mapToInt(g -> g.getRoundNumber())
-                    .max()
-                    .orElse(0) + 1;
-        } else {
-            nextRoundNumber = 1;
-        }
-        round.setRoundNumber(nextRoundNumber);
-
-        //rounds left
-        result.setGuessesRemaining(MAX_GUESSES - nextRoundNumber);
-        if (game.getNumberOfRounds() >= MAX_GUESSES) {
-            result.setStatus(GuessStatus.Loss);
             return result;
         }
 
@@ -128,22 +101,19 @@ public class GameService {
         round.setExact(exact);
         result.setPartialGuess(partial);
         result.setExactGuess(exact);
-        rounds.add(round);
-        game.setRounds(rounds);
-        game.setNumberOfRounds(rounds.size());
 
         if (exact == 4) {
             result.setStatus(GuessStatus.Win);
-        } else if (game.getNumberOfRounds() >= MAX_GUESSES) {
-            result.setStatus(GuessStatus.Loss);
-        } else {
+        }  else {
             result.setStatus(GuessStatus.Continue);
         }
+        numberDao.add(game);
+        numberDao.add(round);
         return result;
     }
 
     public List<Game> getAllGames() {
-        return games;
+        return numberDao.getAllGames();
     }
 
     public List<Round> getRoundsById(int gameId) {

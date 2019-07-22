@@ -5,7 +5,6 @@ package ajplarson.bullsandcows.models;
  */
 public class GuessResult {
 
-    private int guessesRemaining;
     private GuessStatus status = GuessStatus.NotFound;
     private int partialGuess;
     private int exactGuess;
@@ -26,13 +25,6 @@ public class GuessResult {
         this.exactGuess = exactGuess;
     }
 
-    public int getGuessesRemaining() {
-        return guessesRemaining;
-    }
-
-    public void setGuessesRemaining(int guessesRemaining) {
-        this.guessesRemaining = guessesRemaining;
-    }
 
     public GuessStatus getStatus() {
         return status;

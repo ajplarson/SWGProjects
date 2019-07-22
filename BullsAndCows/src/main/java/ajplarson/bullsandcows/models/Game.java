@@ -12,26 +12,8 @@ public class Game {
 
     private int gameId;
     private String winningNumbers;
-    private List<Round> rounds;
-    private int numberOfRounds;
 
     public Game() {
-    }
-
-    public List<Round> getRounds() {
-        return rounds;
-    }
-
-    public void setRounds(List<Round> rounds) {
-        this.rounds = rounds;
-    }
-
-    public int getNumberOfRounds() {
-        return numberOfRounds;
-    }
-
-    public void setNumberOfRounds(int numberOfRounds) {
-        this.numberOfRounds = numberOfRounds;
     }
 
     public int getGameId() {

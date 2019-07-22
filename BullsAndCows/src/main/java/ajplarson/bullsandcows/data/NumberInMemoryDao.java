@@ -18,7 +18,6 @@ public class NumberInMemoryDao implements NumberDao {
 
     private static final List<Game> games = new ArrayList<>(); //all games
     private static final List<Round> rounds = new ArrayList<>(); //all rounds
-    private static final List<Guess> guesses = new ArrayList<>(); //all guesses
 
     @Override
     public List<Round> getAllRounds() {
@@ -34,10 +33,6 @@ public class NumberInMemoryDao implements NumberDao {
                         .orElse(null));
     }
 
-    @Override
-    public List<Guess> getAllGuesses() {
-        return new ArrayList<>(guesses);
-    }
 
     @Override
     public List<Game> getAllGames() {
@@ -50,6 +45,23 @@ public class NumberInMemoryDao implements NumberDao {
                 .filter(g -> g.getGameId() == gameId)
                 .findFirst()
                 .orElse(null);
+    }
+
+    @Override
+    public Game add(Game game) {
+        games.add(game);
+        return game;
+    }
+
+    @Override
+    public Round add(Round round) {
+        rounds.add(round);
+        return round;
+    }
+    @Override
+    public boolean deleteById(int id) {
+        games.removeIf(i -> i.getGameId() == id);
+        return rounds.removeIf(i -> i.getGameId() == id);
     }
 
 }

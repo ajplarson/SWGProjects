@@ -8,6 +8,7 @@ public class Guess {
     private int gameId;
     private String guessAsString;
 
+    
     public Guess() {
     }
 

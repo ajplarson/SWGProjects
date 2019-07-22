@@ -8,16 +8,16 @@ import java.sql.Timestamp;
 public class Round {
 
     private int roundNumber;
+    private String guess;
     private int exact;
     private int partial;
     private Timestamp time;
-    private Guess guess;
     private int gameId;
 
     public Round() {
     }
 
-    public Round(int roundNumber, int exact, int partial, Timestamp time, Guess guess, int gameId) {
+    public Round(int roundNumber, int exact, int partial, Timestamp time, String guess, int gameId) {
         this.roundNumber = roundNumber;
         this.exact = exact;
         this.partial = partial;
@@ -42,11 +42,11 @@ public class Round {
         this.time = time;
     }
 
-    public Guess getGuess() {
+    public String getGuess() {
         return guess;
     }
 
-    public void setGuess(Guess guess) {
+    public void setGuess(String guess) {
         this.guess = guess;
     }
 

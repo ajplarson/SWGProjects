@@ -14,9 +14,13 @@ public interface NumberDao {
 
     List<Round> getRoundsById(int gameId);
 
-    List<Guess> getAllGuesses();
-
     List<Game> getAllGames();
 
     Game getGameById(int gameId);
+
+    Game add(Game game);
+
+    Round add(Round round);
+
+    boolean deleteById(int id);
 }
