@@ -5,18 +5,23 @@ package ajplarson.bullsandcows.models;
  */
 public class Guess {
 
-    private int guessId;
+    private int gameId;
     private String guessAsString;
 
     public Guess() {
     }
 
-    public int getGuessId() {
-        return guessId;
+    public Guess(int gameId, String guessAsString) {
+        this.gameId = gameId;
+        this.guessAsString = guessAsString;
     }
 
-    public void setGuessId(int guessId) {
-        this.guessId = guessId;
+    public int getGameId() {
+        return gameId;
+    }
+
+    public void setGameId(int gameId) {
+        this.gameId = gameId;
     }
 
     public String getGuessAsString() {

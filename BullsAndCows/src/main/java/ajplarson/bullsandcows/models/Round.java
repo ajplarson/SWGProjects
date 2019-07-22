@@ -14,6 +14,18 @@ public class Round {
     private Guess guess;
     private int gameId;
 
+    public Round() {
+    }
+
+    public Round(int roundNumber, int exact, int partial, Timestamp time, Guess guess, int gameId) {
+        this.roundNumber = roundNumber;
+        this.exact = exact;
+        this.partial = partial;
+        this.time = time;
+        this.guess = guess;
+        this.gameId = gameId;
+    }
+
     public int getGameId() {
         return gameId;
     }
@@ -52,9 +64,6 @@ public class Round {
 
     public void setPartial(int partial) {
         this.partial = partial;
-    }
-
-    public Round() {
     }
 
     public int getRoundNumber() {

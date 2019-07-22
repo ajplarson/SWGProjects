@@ -11,7 +11,6 @@ import java.util.Set;
 public class Game {
 
     private int gameId;
-    private List<Character> guesses = new ArrayList<>();
     private String winningNumbers;
     private List<Round> rounds;
     private int numberOfRounds;
@@ -34,7 +33,6 @@ public class Game {
     public void setNumberOfRounds(int numberOfRounds) {
         this.numberOfRounds = numberOfRounds;
     }
-    
 
     public int getGameId() {
         return gameId;
@@ -52,38 +50,4 @@ public class Game {
         this.winningNumbers = winningNumbers;
     }
 
-    public int getIncorrectCount() {
-        Set<Character> numbers = new HashSet<>();
-
-        for (Character c : winningNumbers.toCharArray()) {
-            numbers.add(c);
-        }
-        int initialSize = numbers.size();
-        numbers.addAll(guesses);
-
-        int finalSize = numbers.size();
-        return finalSize - initialSize;
-    }
-
-    public int getRemainingNumbers() {
-        List<Character> numbers = new ArrayList<>();
-        for (Character c : winningNumbers.toCharArray()) {
-            numbers.add(c); //get rid of commas
-        }
-        numbers.removeIf(item -> guesses.contains(item));
-        return numbers.size();
-    }
-
-    public List<Character> getGuesses() {
-        return new ArrayList<>(guesses);
-    }
-
-    public boolean add(Character number) {
-        boolean exists = false;
-        if (guesses.contains(number)) {
-            exists = true;
-        }
-        guesses.add(number);
-        return !exists;
-    }
 }

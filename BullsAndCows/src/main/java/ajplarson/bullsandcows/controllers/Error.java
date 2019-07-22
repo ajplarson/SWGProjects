@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
  * @author ajplarson
  */
 public class Error {
-    
+
     private LocalDateTime timestamp = LocalDateTime.now();
     private String message;
 
