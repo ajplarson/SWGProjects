@@ -59,9 +59,13 @@ public class NumberInMemoryDao implements NumberDao {
         return round;
     }
     @Override
-    public boolean deleteById(int id) {
-        games.removeIf(i -> i.getGameId() == id);
+    public boolean deleteRoundById(int id) {
         return rounds.removeIf(i -> i.getGameId() == id);
+    }
+    
+    @Override 
+    public boolean deleteGameById(int id) {
+        return games.removeIf(i -> i.getGameId() == id);
     }
 
 }

@@ -101,11 +101,15 @@ public class NumberDatabaseDao implements NumberDao {
     }
 
     @Override
-    public boolean deleteById(int id) {
-        final String sql1 = "DELETE FROM round where gameid = ?;";
-        jdbcTemplate.update(sql1, id);
+    public boolean deleteGameById(int id) {
         final String sql2 = "DELETE FROM game WHERE gameid = ?;";
         return jdbcTemplate.update(sql2, id) > 0;
+    }
+    
+    @Override
+    public boolean deleteRoundById(int id) {
+         final String sql1 = "DELETE FROM round WHERE gameid = ?;";
+         return jdbcTemplate.update(sql1, id) > 0;
     }
 
     private static final class GameMapper implements RowMapper<Game> {

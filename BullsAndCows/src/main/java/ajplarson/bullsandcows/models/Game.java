@@ -16,6 +16,12 @@ public class Game {
     public Game() {
     }
 
+    public Game(int gameId, String winningNumbers) {
+        this.gameId = gameId;
+        this.winningNumbers = winningNumbers;
+    }
+    
+
     public int getGameId() {
         return gameId;
     }

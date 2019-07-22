@@ -22,5 +22,7 @@ public interface NumberDao {
 
     Round add(Round round);
 
-    boolean deleteById(int id);
+    boolean deleteGameById(int id);
+    boolean deleteRoundById(int id);
+
 }
