@@ -34,7 +34,7 @@ public class GameService {
         //dont set ids let the database do work for you. dont have specific local lists for games use the database
         Game g = new Game();
         g.setWinningNumbers(makeWinningNumbers());
-        numberDao.add(g);
+        numberDao.addGame(g);
         return g;
     }
 
@@ -107,8 +107,8 @@ public class GameService {
         }  else {
             result.setStatus(GuessStatus.Continue);
         }
-        numberDao.add(game);
-        numberDao.add(round);
+        numberDao.addGame(game);
+        numberDao.addRound(round);
         return result;
     }
 

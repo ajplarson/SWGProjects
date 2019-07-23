@@ -25,6 +25,13 @@ public class Round {
         this.guess = guess;
         this.gameId = gameId;
     }
+    public Round(int exact, int partial, Timestamp time, String guess, int gameId) {
+        this.exact = exact;
+        this.partial = partial;
+        this.time = time;
+        this.guess = guess;
+        this.gameId = gameId;
+    }
 
     public int getGameId() {
         return gameId;

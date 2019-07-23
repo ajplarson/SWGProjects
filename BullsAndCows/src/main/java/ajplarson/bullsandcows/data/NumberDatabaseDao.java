@@ -60,7 +60,7 @@ public class NumberDatabaseDao implements NumberDao {
     }
 
     @Override
-    public Game add(Game game) {
+    public Game addGame(Game game) {
         final String sql = "INSERT INTO game(winningnumbers) VALUES(?);";
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
 
@@ -79,8 +79,8 @@ public class NumberDatabaseDao implements NumberDao {
     }
 
     @Override
-    public Round add(Round round) {
-        final String sql = "INSERT INTO round(exact, partial, time, gameid, guess) VALUES(?,?,?,?,?);";
+    public Round addRound(Round round) {
+        final String sql = "INSERT INTO round(exact, partial, time, gameid, guess) VALUES (?,?,?,?,?);";
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update((Connection conn) -> {
@@ -101,15 +101,19 @@ public class NumberDatabaseDao implements NumberDao {
     }
 
     @Override
-    public boolean deleteGameById(int id) {
-        final String sql2 = "DELETE FROM game WHERE gameid = ?;";
-        return jdbcTemplate.update(sql2, id) > 0;
+    public void deleteGameById(int id) {
+        jdbcTemplate.execute("SET SQL_SAFE_UPDATES = 0;");
+        final String sql1 = "DELETE FROM game WHERE gameid = ?;";
+        jdbcTemplate.update(sql1, id);
+        jdbcTemplate.execute("SET SQL_SAFE_UPDATES = 1;");
     }
     
     @Override
-    public boolean deleteRoundById(int id) {
-         final String sql1 = "DELETE FROM round WHERE gameid = ?;";
-         return jdbcTemplate.update(sql1, id) > 0;
+    public void deleteRoundById(int id) {
+        jdbcTemplate.execute("SET SQL_SAFE_UPDATES = 0;");
+        final String sql1 = "DELETE FROM round WHERE roundid = ?;";
+        jdbcTemplate.update(sql1, id);
+        jdbcTemplate.execute("SET SQL_SAFE_UPDATES = 1;");
     }
 
     private static final class GameMapper implements RowMapper<Game> {
@@ -130,6 +134,9 @@ public class NumberDatabaseDao implements NumberDao {
         @Override
         public Round mapRow(ResultSet rs, int index) throws SQLException {
             Round round = new Round();
+//            if(rs.last()) { //if this is null then the other stuff would be  for testing
+//                return null;
+//            }
             round.setGameId(rs.getInt("gameid"));
             round.setTime(rs.getTimestamp("time"));
             round.setGuess(rs.getString("guess"));

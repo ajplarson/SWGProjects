@@ -48,24 +48,24 @@ public class NumberInMemoryDao implements NumberDao {
     }
 
     @Override
-    public Game add(Game game) {
+    public Game addGame(Game game) {
         games.add(game);
         return game;
     }
 
     @Override
-    public Round add(Round round) {
+    public Round addRound(Round round) {
         rounds.add(round);
         return round;
     }
     @Override
-    public boolean deleteRoundById(int id) {
-        return rounds.removeIf(i -> i.getGameId() == id);
+    public void deleteRoundById(int id) {
+        rounds.removeIf(i -> i.getGameId() == id);
     }
     
     @Override 
-    public boolean deleteGameById(int id) {
-        return games.removeIf(i -> i.getGameId() == id);
+    public void deleteGameById(int id) {
+        games.removeIf(i -> i.getGameId() == id);
     }
 
 }

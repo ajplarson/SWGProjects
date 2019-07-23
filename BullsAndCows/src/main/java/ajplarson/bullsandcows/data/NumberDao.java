@@ -18,11 +18,11 @@ public interface NumberDao {
 
     Game getGameById(int gameId);
 
-    Game add(Game game);
+    Game addGame(Game game);
 
-    Round add(Round round);
+    Round addRound(Round round);
 
-    boolean deleteGameById(int id);
-    boolean deleteRoundById(int id);
+    void deleteGameById(int id);
+    void deleteRoundById(int id);
 
 }
