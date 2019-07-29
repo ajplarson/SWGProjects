@@ -102,12 +102,13 @@ public class NumberDaoTest {
         round.setGuess("1234");
         round.setPartial(0);
         round.setTime(Timestamp.valueOf(LocalDateTime.now()));
+        dao.addRound(round);
         Round round2 = new Round();
-        round.setExact(3);
-        round.setGameId(gameId);
-        round.setGuess("1274");
-        round.setPartial(0);
-        round.setTime(Timestamp.valueOf(LocalDateTime.now()));
+        round2.setExact(3);
+        round2.setGameId(gameId);
+        round2.setGuess("1274");
+        round2.setPartial(0);
+        round2.setTime(Timestamp.valueOf(LocalDateTime.now()));
         dao.addRound(round2);
         assertTrue(dao.getRoundsById(gameId).size() == 2);
     }
