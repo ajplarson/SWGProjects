@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio Ghibli</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <div th:replace="~{shared :: nav}"></div>
+    <div class="container">
+        <h2>Films</h2>
+        <div class="row">
+            <div class="card col-4" th:each="movie : ${movies}">
+                <a th:href="'/movie/' + ${movie.movieId}">
+                    <img th:src="${movie.posterUrl}" class="card-img-top" th:alt="${movie.title}">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${movie.title}">Card title</h5>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <a th:href="'/movie/add'">
+                <button style="width: 480px; height: 360px; background-image: url(https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fi.ytimg.com%2Fvi%2FjutSZVzV5QI%2Fhqdefault.jpg&f=1)" class="btn btn-warning">Add a movie</button>
+            </a>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

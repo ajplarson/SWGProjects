@@ -1,0 +1,14 @@
+corbos\ghibli\service\MovieService.class
+corbos\ghibli\data\CharacterMapper.class
+corbos\ghibli\App.class
+corbos\ghibli\data\MovieDao.class
+corbos\ghibli\models\Character.class
+corbos\ghibli\data\SceneMapper.class
+corbos\ghibli\data\MovieMapper.class
+corbos\ghibli\service\CharacterService.class
+corbos\ghibli\data\SceneDao.class
+corbos\ghibli\controllers\CharacterController.class
+corbos\ghibli\controllers\MovieController.class
+corbos\ghibli\data\CharacterDao.class
+corbos\ghibli\models\Movie.class
+corbos\ghibli\models\Scene.class

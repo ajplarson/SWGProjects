@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio Ghibli</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <div th:replace="~{shared :: nav}"></div>
+    <div class="container">
+        <h2>Add a movie!</h2>
+        <form method="POST">
+            <div class="form-group">
+                <label for="titleInput">Title</label>
+                <input type="text" id="titleInput" name="title" class="form-control"
+                    placeholder="Please enter a movie title">
+            </div>
+            <div class="form-group">
+                <label for="urlInput">Url for Poster</label>
+                <input type="url" id="urlInput" name="url" class="form-control" placeholder="Please enter a poster url">
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit">Save</button>
+                <a th:href="'/'" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+        <div class="row">
+            <div class="card col-4" th:each="movie : ${movies}">
+                <a th:href="'/movie/' + ${movie.movieId}">
+                    <img th:src="${movie.posterUrl}" class="card-img-top" th:alt="${movie.title}">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${movie.title}">Card title</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="'Studio Ghibli - ' + ${movie.title}">Studio Ghibli</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <div th:replace="~{shared :: nav}"></div>
+    <div class="container">
+        <h2 th:text="${movie.title}">Totoro</h2>
+        <img th:src="${movie.posterUrl}" th:alt="${movie.title}">
+
+        <div class="row">
+            <h2 class="col">Characters</h2>
+            <div class="col">
+                <a th:href="@{/movie/{movieId}/character(movieId=${movie.movieId})}" class="btn btn-primary">Add
+                    Character</a>
+            </div>
+        </div>
+
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="ch : ${movie.characters}">
+                    <td th:text="${ch.name}">Kiki</td>
+                    <td>
+                        <a th:href="@{/character/{cid}/delete(cid=${ch.characterId})}" class="btn btn-danger">Delete</a>
+                        <a th:href="@{/character/{cid}(cid=${ch.characterId})}" class="btn btn-info">Edit</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2>Scene</h2>
+    </div>
+</body>
+</html>

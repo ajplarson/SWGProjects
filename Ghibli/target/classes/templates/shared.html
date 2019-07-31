@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shared Template</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-light bg-light col-3" th:fragment="nav">
+        <a class="navbar-brand" href="/"><img
+                src="https://www.rotoscopers.com/wp-content/uploads/2017/03/Attachment-1-4-150x150.jpg" width="75"
+                height="75" alt=""> <strong><em>Click here to go home</em></strong></a>
+    </nav>
+    <div class="jumbotron col-9 mx-auto"
+        style="background-image: url(https://www.animationmagazine.net/wordpress/wp-content/uploads/my-neighbor-totoro-1502.jpg);"
+        th:fragment="nav">
+        <h1 class="display-1" style="color: white; text-shadow:
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;  ">
+            Studio Ghibli Films
+        </h1>
+    </div>
+</body>
+
+</html>
