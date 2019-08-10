@@ -7,14 +7,22 @@ package com.sg.classrosterthyme.models;
 
 import java.util.List;
 import java.util.Objects;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 /**
  *
  * @author ajplarson
  */
 public class Course {
+
     private int id;
+
+    @NotBlank(message = "Name must not be blank")
+    @Size(max = 50, message = "Name must be fewer than 50 characters")
     private String name;
+    
+    @Size(max = 255, message = "Description must be fewer than 255 characters")
     private String description;
     private Teacher teacher;
     private List<Student> students;
@@ -99,5 +107,5 @@ public class Course {
         }
         return true;
     }
-    
+
 }

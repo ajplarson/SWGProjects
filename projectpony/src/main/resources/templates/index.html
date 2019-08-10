@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Well... this is awkward</title>
+</head>
+
+<body>
+
+    <div class="container auto-mx">
+        <img style="width: 800px;"
+            src="https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Fhivewire3d.com%2Fmedia%2Fcatalog%2Fproduct%2Fcache%2F1%2Fimage%2F1600x%2F040ec09b1e35df139433887a97daa66f%2F1%2F1%2F11086-hivewire-shetland-pony-promo-02.jpg&f=1"
+            alt="">
+        <h2>Ponies</h2>
+        <div class="row">
+            <div class="card col-4" th:each="pony : ${ponies}">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${pony.ponyName}">Card title</h5>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <a th:href="'/pony/add'">
+                <button
+                    style="width: 480px; height: 300px; background-image: url(https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fi.ytimg.com%2Fvi%2FjutSZVzV5QI%2Fhqdefault.jpg&f=1)"
+                    class="btn btn-warning">Add a pony</button>
+            </a>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
