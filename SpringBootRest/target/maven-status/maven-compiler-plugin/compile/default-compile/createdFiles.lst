@@ -2,8 +2,6 @@ ajplarson\springbootrest\controllers\ToDoController.class
 ajplarson\springbootrest\data\ToDoDao.class
 ajplarson\springbootrest\App.class
 ajplarson\springbootrest\data\ToDoDatabaseDao.class
-ajplarson\springbootrest\controllers\Error.class
 ajplarson\springbootrest\data\ToDoDatabaseDao$ToDoMapper.class
 ajplarson\springbootrest\models\ToDo.class
 ajplarson\springbootrest\data\ToDoInMemoryDao.class
-ajplarson\springbootrest\controllers\ToDoControllerExceptionHandler.class
