@@ -1,3 +1,2 @@
 # SWGProjects
-SWG projects
-Random exercises worked on during the bootcamp for dev10
+Random exercises or practice projects that I worked on during the SWG bootcamp for dev10
