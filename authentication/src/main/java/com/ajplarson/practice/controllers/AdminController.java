@@ -47,7 +47,7 @@ public class AdminController {
         user.setUsername(username);
         user.setPassword(encoder.encode(password));
         user.setEnabled(true);
-
+        
         Set<Role> userRoles = new HashSet<>();
         userRoles.add(roles.getRoleByRole("ROLE_USER"));
         user.setRoles(userRoles);
