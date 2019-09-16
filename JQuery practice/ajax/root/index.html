@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>AjaxPractice</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <h1 class="display-1">Ajax Chaos</h1>
+        </div>
+        <div class="row">
+            <!-- compliment-->
+            <div class="col-6">
+                <h1 class="display-5">
+                    Get a Random Compliment
+                </h1>
+                <form id="frm">
+                    <textarea name="text" id="output" cols="30" rows="5">
+                    </textarea>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="yourName" placeholder="Please enter your name">
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="complimentButton">Compliment Me!</button>
+                </form>
+            </div>
+            <!-- end compliment-->
+
+            <!-- color-->
+            <div class="col-6">
+                <h1 class="display-5">
+                    Click to set a random color!
+                </h1>
+                <div id="background">
+                    <h1 class="display-3" id="colorme">
+                        Color me !
+                    </h1>
+                </div>
+                <form id="frmcolor">
+                    <button type="submit" class="btn btn-primary" id="colorButton">&SmallCircle;</button>
+                </form>
+            </div>
+            <!-- end color -->
+            <!-- math -->
+            <div class="col-6">
+                <h1 class="display-5">
+                    Maths
+                </h1>
+                <form id="frmmath">
+                    <div class="form-group">
+                        <label for="operand1">Operand 1</label>
+                        <input type="number" class="form-control" id="operand1" placeholder="Please enter a number">
+                    </div>
+                    <div class="form-group">
+                        <label class="mr-sm-2" for="operator">Operator</label>
+                        <select class="custom-select mr-sm-2" id="operator">
+                            <option selected>Choose an operator</option>
+                            <option value="plus">&plus;</option>
+                            <option value="times">&ast;</option>
+                            <option value="minus">&minus;</option>
+                            <option value="dividedBy">&divide;</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="operand2">Operand 2</label>
+                        <input type="number" class="form-control" id="operand2" placeholder="Please enter a number">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">&equals;</button>
+                    </div>
+                </form>
+                <textarea name="number" id="result" cols="15" rows="2">
+                </textarea>
+            </div>
+            <!-- end match-->
+            <!-- aminals-->
+            <div class="col-6">
+                <h1 class="display-5">
+                    Aminals
+                </h1>
+                <form id="frmanimal">
+                    <button type="submit" class="btn btn-primary" id="animalButton">Let's Find an Aminal!</button>
+                </form>
+                <div id ="aminals"></div>
+            </div>
+            <!-- end aminals -->
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="js/scripts.js"></script>
+</body>
+
+</html>
